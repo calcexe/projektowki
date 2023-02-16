@@ -17,10 +17,8 @@ const Index: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Projektówki - godziny</title>
-        <meta name="description" content="Projektówki - godziny" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Godziny</title>
+        <meta name="description" content="Godziny" key="godziny" />
       </Head>
       <motion.div
         key="index"

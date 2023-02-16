@@ -39,10 +39,8 @@ const SingleProject: NextPage<SingleProjectProps> = ({ project }) => {
   return (
     <>
       <Head>
-        <title>Projektówki - {project.name}</title>
-        <meta name="description" content={`Projektówki - ${project.name}`} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>{project.name}</title>
+        <meta name="description" content={project.name} key={project.name} />
       </Head>
 
       <div className="flex w-full h-full">

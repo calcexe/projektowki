@@ -45,10 +45,8 @@ export default function Login({
   ) : success && !error ? null : (
     <>
       <Head>
-        <title>Projektówki - Logowanie</title>
-        <meta name="description" content="Projektówki - Logowanie" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Logowanie</title>
+        <meta name="description" content="Logowanie" key="logowanie" />
       </Head>
       <div className="grid grid-cols-2 bg-gray-100 h-full max-h-full ">
         <div className="col-span-1 flex p-32 h-screen">

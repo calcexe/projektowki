@@ -5,10 +5,8 @@ const Users = () => {
   return (
     <div className="h-full">
       <Head>
-        <title>Projektówki - użytkownicy</title>
-        <meta name="description" content="Projektówki - użytkownicy" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Użytkownicy</title>
+        <meta name="description" content="Użytkownicy" key="uzytkownicy" />
       </Head>
     </div>
   );

@@ -25,10 +25,8 @@ const Projects = () => {
   return (
     <>
       <Head>
-        <title>Projektówki - projekty</title>
-        <meta name="description" content="Projektówki - projekty" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Projekty</title>
+        <meta name="description" content="Projekty" key="projekty" />
       </Head>
       <BaseAnimation className="h-full bg-gray-100 flex justify-center pb-10">
         <BaseDrawer isOpen={addProjectVisible} setIsOpen={setAddProjectVisible}>
