@@ -10,8 +10,12 @@ import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
 import { QueryClient, QueryClientProvider } from "react-query";
 import getSupabase from "@/utils/Supabase";
+import { isPublicPage } from "@/utils/isPublicPage";
 
 const inter = Inter({ subsets: ["latin-ext"] });
+
+const shouldShowSidebar = (pathname: string) =>
+  !pathname.startsWith("/auth") && !isPublicPage(pathname);
 
 export default function App({
   Component,
@@ -22,10 +26,10 @@ export default function App({
 }>) {
   const [supabaseClient] = useState(getSupabase());
   const { pathname } = useRouter();
-  const [showSidebar, setShowSidebar] = useState(!pathname.startsWith("/auth"));
+  const [showSidebar, setShowSidebar] = useState(shouldShowSidebar(pathname));
 
   useEffect(() => {
-    setShowSidebar(!pathname.startsWith("/auth"));
+    setShowSidebar(shouldShowSidebar(pathname));
   }, [pathname]);
 
   const queryClient = new QueryClient();

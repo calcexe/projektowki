@@ -1,6 +1,7 @@
 import { createMiddlewareSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { isPublicPage } from "./utils/isPublicPage";
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
@@ -11,7 +12,11 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (req.nextUrl.pathname.startsWith("/auth")) {
+  const { pathname } = req.nextUrl;
+
+  if (isPublicPage(pathname)) {
+    return res;
+  } else if (pathname.startsWith("/auth")) {
     if (session) {
       const redirectUrl = req.nextUrl.clone();
       redirectUrl.pathname = "/";
@@ -31,5 +36,6 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: "/((?!api|_next|static|public|favicon.ico).*)",
+  matcher:
+    "/((?!api|_next|static|public|favicon.ico|googled52fa57ae1d5a167.html).*)",
 };
