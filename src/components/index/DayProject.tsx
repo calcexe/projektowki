@@ -7,10 +7,14 @@ import React, {
   useRef,
   useState,
 } from "react";
+import SupabaseImage from "../SupabaseImage";
+import { Phase } from "@/api/types/Phase";
+import { Project } from "@/api/types/Project";
 
 export type DayProjectProps = {
-  id: string;
   last: boolean;
+  phase: Phase;
+  project: Project;
   onRemove: () => void;
 };
 
@@ -32,7 +36,12 @@ const Button: FunctionComponent<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   );
 };
 
-const DayProject: FunctionComponent<DayProjectProps> = ({ last, onRemove }) => {
+const DayProject: FunctionComponent<DayProjectProps> = ({
+  phase,
+  project,
+  last,
+  onRemove,
+}) => {
   const [notesVisible, setNotesVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -56,9 +65,16 @@ const DayProject: FunctionComponent<DayProjectProps> = ({ last, onRemove }) => {
               "w-80 p-3 bg-gray-200 rounded-2xl flex gap-4 items-center"
             )}
           >
-            <div className="w-8 h-8 bg-white rounded-xl" />
+            <SupabaseImage
+              bucket="images"
+              src={project.image_url!}
+              width={32}
+              height={32}
+              alt="Obraz projektu"
+              className="w-8 h-8 bg-white rounded-xl"
+            />
             <span className="text-sm text-white/80 font-medium flex-1">
-              Cerebreon Design
+              {phase.name}
             </span>
             <input
               placeholder="0"

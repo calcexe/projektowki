@@ -11,6 +11,8 @@ import { AnimatePresence } from "framer-motion";
 import { QueryClient, QueryClientProvider } from "react-query";
 import getSupabase from "@/utils/Supabase";
 import { isPublicPage } from "@/utils/isPublicPage";
+import ProjectsProvider from "@/context/ProjectsContext/ProjectsContext";
+import DateProvider from "@/context/DateContext/DateContext";
 
 const inter = Inter({ subsets: ["latin-ext"] });
 
@@ -40,19 +42,23 @@ export default function App({
       initialSession={pageProps.initialSession}
     >
       <QueryClientProvider client={queryClient}>
-        <main className={clsx(inter.className, "h-full flex bg-gray-100")}>
-          {showSidebar && <Sidebar />}
-          <div
-            className={clsx(
-              showSidebar && "ml-20 border-l-2 border-l-gray-100",
-              "flex-1"
-            )}
-          >
-            <AnimatePresence initial={false} mode="wait">
-              <Component {...pageProps} key={router.asPath} />
-            </AnimatePresence>
-          </div>
-        </main>
+        <DateProvider>
+          <ProjectsProvider>
+            <main className={clsx(inter.className, "h-full flex bg-gray-100")}>
+              {showSidebar && <Sidebar />}
+              <div
+                className={clsx(
+                  showSidebar && "ml-20 border-l-2 border-l-gray-100",
+                  "flex-1"
+                )}
+              >
+                <AnimatePresence initial={false} mode="wait">
+                  <Component {...pageProps} key={router.asPath} />
+                </AnimatePresence>
+              </div>
+            </main>
+          </ProjectsProvider>
+        </DateProvider>
       </QueryClientProvider>
     </SessionContextProvider>
   );

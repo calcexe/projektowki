@@ -7,8 +7,8 @@ import clsx from "clsx";
 import {
   addDays,
   format,
+  getDate,
   getDaysInMonth,
-  getMonth,
   getWeek,
   isFirstDayOfMonth,
   isLastDayOfMonth,
@@ -74,14 +74,19 @@ const DayButton: FunctionComponent<DayButtonProps> = ({
 const DaysList: FunctionComponent = ({}) => {
   const daysRef = useRef<HTMLDivElement>(null);
   const { date: selectedDate, setDate } = useDateContext();
-  const selectedMonth = getMonth(selectedDate);
+  const scrollToSelection = () => {
+    const dayInMonth = getDate(selectedDate);
+    const todayElement = daysRef.current?.children.item(dayInMonth - 1);
+    todayElement?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   useEffect(() => {
-    daysRef.current?.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, [selectedMonth]);
+    scrollToSelection();
+  }, [selectedDate]);
+
+  useEffect(() => {
+    scrollToSelection();
+  }, []);
 
   return (
     <div

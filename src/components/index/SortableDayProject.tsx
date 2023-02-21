@@ -14,7 +14,7 @@ const SortableDayProject: FunctionComponent<DayProjectProps> = ({
     transition,
     isDragging,
   } = useSortable({
-    id: props.id,
+    id: props.phase.id,
   });
 
   const style: React.CSSProperties = {

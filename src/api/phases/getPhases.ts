@@ -1,7 +1,7 @@
 import getSupabase from "@/utils/Supabase";
 import { useQuery } from "react-query";
 
-export const QUERY_ID = "phases";
+export const QUERY_ID = "get_phases";
 
 export const getPhases = async (projectId: number) => {
   const supabase = getSupabase();

@@ -22,7 +22,6 @@ const AddProjectDrawer: FunctionComponent<AddProjectDrawerProps> = ({
   setIsOpen,
 }) => {
   const { register, handleSubmit, setValue } = useForm<AddProjectInputs>();
-
   const { mutate } = useCreateProject();
 
   const onSubmit: SubmitHandler<AddProjectInputs> = async (inputs) => {
@@ -54,11 +53,11 @@ const AddProjectDrawer: FunctionComponent<AddProjectDrawerProps> = ({
         Dodaj projekt
       </h1>
       <div className="flex-1 bg-gray-200 box-border h-full flex flex-col">
-        <div className="flex-col flex-auto h-0 pt-10 px-12 overflow-y-auto gap-4">
-          <Input placeholder="Nazwa projektu" {...register("name")} />
-          <Input placeholder="Klient" {...register("client")} />
+        <div className="flex flex-col flex-auto h-0 pt-10 px-12 overflow-y-auto gap-4">
+          <Input placeholder="Nazwa projektu" {...register("name")} id="name" />
+          <Input placeholder="Klient" {...register("client")} id="client" />
           <div className="flex flex-wrap gap-4 mt-6">
-            <Dropzone placeholder="Avatar" icon={icon} />
+            <Dropzone placeholder="Avatar" icon={icon} id="avatar" />
             <button
               type="button"
               className="bg-gray-300 w-8 h-8 aspect-square rounded-lg hover:scale-110 transition-transform mt-6"
