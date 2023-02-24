@@ -1,12 +1,10 @@
 import { UserPhase } from "@/api/types/UserPhase";
-import useDateContext from "@/context/DateContext/useDateContext";
 import useProjectsContext from "@/context/ProjectsContext/useProjectsContext";
 import { toDate } from "@/utils/toDate";
-import { differenceInDays } from "date-fns";
+import { isBefore, isSameDay } from "date-fns";
 import { useEffect, useState } from "react";
 
-export const useCurrentUserPhase = () => {
-  const { date } = useDateContext();
+export const useCurrentUserPhase = (date: Date) => {
   const { userPhases } = useProjectsContext();
   const [currentUserPhase, setCurrentUserPhase] = useState<
     UserPhase | undefined
@@ -15,16 +13,18 @@ export const useCurrentUserPhase = () => {
   useEffect(() => {
     const sortedUserPhases =
       userPhases
-        ?.filter(
-          (phase) => differenceInDays(date, toDate(phase.created_at)!) >= 0
-        )
-        .sort(
-          (a, b) =>
+        ?.filter(({ created_at }) => {
+          const createdAt = toDate(created_at)!;
+          return isBefore(createdAt, date) || isSameDay(date, createdAt);
+        })
+        .sort((a, b) => {
+          return (
             toDate(b.created_at)!.getTime() - toDate(a.created_at)!.getTime()
-        ) ?? [];
+          );
+        }) ?? [];
 
     setCurrentUserPhase(
-      sortedUserPhases.length >= 0 ? sortedUserPhases[0] : undefined
+      sortedUserPhases.length > 1 ? sortedUserPhases[0] : undefined
     );
   }, [date, userPhases]);
 

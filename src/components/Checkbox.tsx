@@ -18,8 +18,8 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           type="checkbox"
           className={clsx(
             className,
-            "cursor-pointer rounded-md text-transparent border border-white/60 !outline-none bg-transparent transition-all",
-            "checked:!border-white/80 checked:border checked:bg-transparent",
+            "accent-purple-regular w-4 h-4 cursor-pointer rounded-md text-black border-2 border-purple-regular !outline-none bg-transparent transition-all",
+            "checked:!border-purple-regular checked:border-2 checked:bg-purple-regular",
             "focus:ring-offset-0 focus:!ring-0 focus:border-2",
             "hover:border-2"
           )}

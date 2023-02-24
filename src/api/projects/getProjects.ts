@@ -1,7 +1,7 @@
 import getSupabase from "@/utils/Supabase";
 import { useQuery } from "react-query";
 
-export const QUERY_ID = "projects";
+export const GET_PROJECTS_QUERY_ID = "getProjects";
 
 const getProjects = async () => {
   const supabase = getSupabase();
@@ -10,7 +10,7 @@ const getProjects = async () => {
 };
 
 export const useProjects = () => {
-  const { data } = useQuery(QUERY_ID, getProjects);
+  const { data } = useQuery(GET_PROJECTS_QUERY_ID, getProjects);
   return data ?? [];
 };
 

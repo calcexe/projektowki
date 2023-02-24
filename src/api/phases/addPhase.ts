@@ -1,6 +1,6 @@
 import getSupabase from "@/utils/Supabase";
 import { useMutation, useQueryClient } from "react-query";
-import { QUERY_ID } from "./getPhases";
+import { GET_PHASES_QUERY_ID } from "./getPhases";
 
 type AddPhaseData = {
   name: string;
@@ -34,7 +34,7 @@ export const useCreatePhase = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation(addPhase, {
-    onSuccess: () => queryClient.invalidateQueries(QUERY_ID),
+    onSuccess: () => queryClient.invalidateQueries(GET_PHASES_QUERY_ID),
   });
   return mutation;
 };

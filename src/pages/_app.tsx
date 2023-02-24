@@ -13,6 +13,7 @@ import getSupabase from "@/utils/Supabase";
 import { isPublicPage } from "@/utils/isPublicPage";
 import ProjectsProvider from "@/context/ProjectsContext/ProjectsContext";
 import DateProvider from "@/context/DateContext/DateContext";
+import HoursProvider from "@/context/HoursContext/HoursContext";
 
 const inter = Inter({ subsets: ["latin-ext"] });
 
@@ -44,19 +45,23 @@ export default function App({
       <QueryClientProvider client={queryClient}>
         <DateProvider>
           <ProjectsProvider>
-            <main className={clsx(inter.className, "h-full flex bg-gray-100")}>
-              {showSidebar && <Sidebar />}
-              <div
-                className={clsx(
-                  showSidebar && "ml-20 border-l-2 border-l-gray-100",
-                  "flex-1"
-                )}
+            <HoursProvider>
+              <main
+                className={clsx(inter.className, "h-full flex bg-gray-100")}
               >
-                <AnimatePresence initial={false} mode="wait">
-                  <Component {...pageProps} key={router.asPath} />
-                </AnimatePresence>
-              </div>
-            </main>
+                {showSidebar && <Sidebar />}
+                <div
+                  className={clsx(
+                    showSidebar && "ml-20 border-l-2 border-l-gray-100",
+                    "flex-1"
+                  )}
+                >
+                  <AnimatePresence initial={false} mode="wait">
+                    <Component {...pageProps} key={router.asPath} />
+                  </AnimatePresence>
+                </div>
+              </main>
+            </HoursProvider>
           </ProjectsProvider>
         </DateProvider>
       </QueryClientProvider>

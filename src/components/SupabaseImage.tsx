@@ -4,7 +4,7 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 
 type SupabaseImageProps = Omit<ImageProps, "src"> & {
   bucket: string;
-  src: string;
+  src?: string | null;
 };
 
 const BASE_64_TRANSPARENT =
@@ -25,6 +25,7 @@ const SupabaseImage: FunctionComponent<SupabaseImageProps> = ({
   const [imageSrc, setImageSrc] = useState<string>(BASE_64_TRANSPARENT);
 
   useEffect(() => {
+    if (!src) return;
     let ignore = false;
     const id = crypto.randomUUID();
     const key = `${bucket}-${src}`;
@@ -43,6 +44,7 @@ const SupabaseImage: FunctionComponent<SupabaseImageProps> = ({
       CACHES.set(key, "");
       callback();
     } else {
+      setImageSrc(CACHES.get(key)!);
       CALLBACKS.has(key)
         ? CALLBACKS.get(key)!.set(id, callback)
         : CALLBACKS.set(key, new Map([[id, callback]]));
@@ -52,10 +54,9 @@ const SupabaseImage: FunctionComponent<SupabaseImageProps> = ({
       CACHES.delete(key);
       ignore = true;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bucket, src]);
 
-  return <Image src={imageSrc} alt={alt} {...props} />;
+  return <Image src={imageSrc || BASE_64_TRANSPARENT} alt={alt} {...props} />;
 };
 
 export default SupabaseImage;

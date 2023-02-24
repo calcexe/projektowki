@@ -1,9 +1,8 @@
-import { useUser } from "@supabase/auth-helpers-react";
 import getSupabase from "@/utils/Supabase";
 import { addMonths, endOfMonth, startOfMonth, subMonths } from "date-fns";
 import { useQuery } from "react-query";
 
-export const QUERY_ID = "get_user_phases";
+export const GET_USER_PHASES_QUERY_ID = "getUserPhases";
 
 const getUserPhases = async (date: Date) => {
   const supabase = getSupabase();
@@ -40,9 +39,13 @@ const getUserPhases = async (date: Date) => {
 };
 
 export const useGetUserPhases = (date: Date) => {
-  const query = useQuery(QUERY_ID, async () => await getUserPhases(date), {
-    refetchOnWindowFocus: false,
-  });
+  const query = useQuery(
+    GET_USER_PHASES_QUERY_ID,
+    async () => await getUserPhases(date),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
   return query;
 };
 

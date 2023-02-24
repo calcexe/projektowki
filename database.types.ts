@@ -49,25 +49,28 @@ export interface Database {
       }
       hours: {
         Row: {
-          created_at: string
+          date: string
           id: number
           minutes: number | null
           notes: string | null
           phase_id: number
+          user_id: string
         }
         Insert: {
-          created_at: string
+          date: string
           id?: number
           minutes?: number | null
           notes?: string | null
           phase_id: number
+          user_id: string
         }
         Update: {
-          created_at?: string
+          date?: string
           id?: number
           minutes?: number | null
           notes?: string | null
           phase_id?: number
+          user_id?: string
         }
       }
       phases: {
@@ -133,18 +136,21 @@ export interface Database {
       }
       users_phases: {
         Row: {
+          alert_skipped: boolean
           created_at: string
           id: number
           phase_ids: number[]
           user_id: string
         }
         Insert: {
+          alert_skipped?: boolean
           created_at?: string
           id?: number
           phase_ids?: number[]
           user_id: string
         }
         Update: {
+          alert_skipped?: boolean
           created_at?: string
           id?: number
           phase_ids?: number[]
@@ -156,25 +162,7 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      get_phase: {
-        Args: {
-          user_uid: string
-          phase_date: string
-          period: Database["public"]["Enums"]["phases_period"]
-        }
-        Returns: {
-          archived: boolean
-          created_at: string
-          end_date: string | null
-          estimate: number | null
-          id: number
-          image_url: string
-          is_monthly: boolean
-          name: string
-          project_id: number
-          start: string
-        }
-      }
+      [_ in never]: never
     }
     Enums: {
       phases_period: "prev" | "current" | "next"

@@ -1,6 +1,6 @@
 import getSupabase from "@/utils/Supabase";
 import { useMutation, useQueryClient } from "react-query";
-import { QUERY_ID } from "./getProjects";
+import { GET_PROJECTS_QUERY_ID } from "./getProjects";
 
 type AddProjectData = {
   name: string;
@@ -40,7 +40,7 @@ export const useCreateProject = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation(addProject, {
-    onSuccess: () => queryClient.invalidateQueries(QUERY_ID),
+    onSuccess: () => queryClient.invalidateQueries(GET_PROJECTS_QUERY_ID),
   });
   return mutation;
 };

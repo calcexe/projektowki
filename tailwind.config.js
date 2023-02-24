@@ -12,6 +12,9 @@ module.exports = {
         page: 1024,
       }),
       colors: {
+        pink: {
+          regular: "#E54D69",
+        },
         mint: {
           regular: "#95D0CE",
           dark: "#3C8683",
@@ -19,6 +22,9 @@ module.exports = {
         purple: {
           regular: "#8B63AF",
           dark: "#7D53A0",
+        },
+        orange: {
+          regular: "#F46457",
         },
         gray: {
           lighter: "#39393D",
@@ -32,5 +38,4 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms")],
 };

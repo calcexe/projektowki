@@ -10,12 +10,12 @@ import { getMonth } from "date-fns";
 import { Phase } from "@/api/types/Phase";
 import { Project } from "@/api/types/Project";
 import { UserPhase } from "@/api/types/UserPhase";
-import { useUser } from "@supabase/auth-helpers-react";
 
 export type ProjectsContextType = {
   phases?: Phase[];
   projects?: Project[];
   userPhases?: UserPhase[];
+  isLoading: boolean;
 };
 
 export const ProjectsContext = React.createContext<ProjectsContextType | null>(
@@ -26,23 +26,18 @@ const ProjectsProvider: FunctionComponent<{ children: ReactNode }> = ({
   children,
 }) => {
   const { date } = useDateContext();
-  const [userId, setUserId] = useState<string | undefined>(undefined);
   const [fetchDate, setFetchDate] = useState(date);
-  const { data: phasesData } = useGetUserPhases(fetchDate);
-  const user = useUser();
+  const { data: phasesData, isLoading } = useGetUserPhases(fetchDate);
 
   const month = getMonth(date);
   useEffect(() => {
     setFetchDate(date);
   }, [month]);
 
-  useEffect(() => {
-    setUserId(user?.id);
-  }, [user?.id]);
-
   return (
     <ProjectsContext.Provider
       value={{
+        isLoading,
         phases: phasesData?.phases,
         projects: phasesData?.projects,
         userPhases: phasesData?.userPhases ?? undefined,

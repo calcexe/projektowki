@@ -46,3 +46,8 @@ body {
   border-radius: 8px;
   border: 2px none transparent;
 }
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: none;
+  display: none;
+}

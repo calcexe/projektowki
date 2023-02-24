@@ -3,7 +3,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "database.types";
 import { useQuery } from "react-query";
 
-export const QUERY_ID = "project";
+export const GET_PROJECT_QUERY_ID = "getProject";
 
 export const getProject = async (
   id: number,
@@ -19,7 +19,7 @@ export const getProject = async (
 };
 
 export const useProjects = (id: number) => {
-  const { data } = useQuery(QUERY_ID, () => getProject(id));
+  const { data } = useQuery(GET_PROJECT_QUERY_ID, () => getProject(id));
   return data ?? [];
 };
 

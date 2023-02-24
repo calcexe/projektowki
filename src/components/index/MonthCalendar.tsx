@@ -16,6 +16,8 @@ import React, { useState } from "react";
 import DaysList from "./DaysList";
 import { AnimatePresence, motion } from "framer-motion";
 import useDateContext from "@/context/DateContext/useDateContext";
+import useHoursContext from "@/context/HoursContext/useHoursContext";
+import { formatMinutes } from "@/utils/formatMinutes";
 
 const variants = {
   enter: (direction: number) => {
@@ -39,6 +41,12 @@ const variants = {
 const MonthCalendar = () => {
   const [direction, setDirection] = useState(0);
   const { date, setDate } = useDateContext();
+  const { hours, isLoading } = useHoursContext();
+  const totalTime = hours.reduce(
+    (prev, value) => prev + (value.minutes ?? 0),
+    0
+  );
+
   const onToday = () => {
     setDate(new Date());
     const dir = isAfter(new Date(), date) ? 1 : -1;
@@ -88,7 +96,8 @@ const MonthCalendar = () => {
           <button
             onClick={onToday}
             className={clsx(
-              "w-fit flex px-2 py-1 gap-1 items-center text-white/60 rounded-md bg-gray-300 text-xs"
+              "w-fit flex px-2 py-1 gap-1 items-center text-white/60 rounded-md bg-gray-300 text-xs transition-transform",
+              "hover:scale-105"
             )}
           >
             <CalendarIcon className="w-3 h-3 text-mint-regular" />
@@ -96,20 +105,23 @@ const MonthCalendar = () => {
           </button>
         </div>
 
-        <span className="h-full mr-10 px-4 rounded-2xl text-white/95 bg-gray-300 text-2xl font-semibold flex items-center">
-          120h
-        </span>
+        {!isLoading && (
+          <span className="h-full mr-10 px-4 rounded-2xl text-white/95 bg-gray-300 text-2xl font-semibold flex items-center">
+            {totalTime ? formatMinutes(totalTime) : "0:00"}
+          </span>
+        )}
       </div>
 
-      <div className={clsx("relative w-full h-full")}>
+      <div className={clsx("relative w-full h-full overflow-hidden")}>
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             className={clsx("w-full h-full flex flex-col absolute")}
             key={format(date, "MM-yyyy")}
             custom={direction}
             transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
+              x: { type: "just", stiffness: 300, damping: 30 },
               opacity: { duration: 0.2 },
+              bounce: false,
             }}
             variants={variants}
             initial="enter"
